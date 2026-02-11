@@ -15,10 +15,9 @@ window.fill((255, 255, 255))
 
 # creating list in which we will store
 # the position of the circle
-polygon_positions = [],[],[]
+polygon_positions = []
 
 # radius of the circle
-polygon_radius = 60
 
 # Color of the circle
 color = (0, 0, 255)
