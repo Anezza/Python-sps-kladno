@@ -2,11 +2,11 @@ import pygame
 import settings
 import random as rand
 class Enemy(pygame.sprite.Sprite):
-    def __init__(self, x, y):
+    def __init__(self):
         super().__init__()
-        self.image = pygame.image.load(settings.ENEMY_IMAGE_PATH.fotmat(rand.randint(1,5))).convert_alpha()
+        self.image = pygame.image.load(settings.ENEMY_IMAGE_PATH.format(rand.randint(1,5))).convert_alpha()
         self.image = pygame.transform.scale(self.image,(self.image.get_width()*settings.ENEMY_SCALE, self.image.get_height()*settings.ENEMY_SCALE))
-        self.rect = self.image.get_rect(center = (x,y))
+        self.rect = self.image.get_rect(top=0, centerx = rand.randint(0, settings.SCREEN_WIDTH))
         self.counter = 0
         self.direction = "Left"
     def update(self):
@@ -26,5 +26,5 @@ class Enemy(pygame.sprite.Sprite):
             self.rect.left=0
             self.direction = "Right"
         if self.rect.right > settings.SCREEN_WIDTH:
-            self.rect.right = settings.sc
+            self.rect.right = settings.SCREEN_WIDTH
             self.direction = "Left"

@@ -1,6 +1,7 @@
 import pygame
 import settings
 from Player import Player
+from Enemy import Enemy
 pygame.init()
 
 screen = pygame.display.set_mode((settings.SCREEN_WIDTH, settings.SCREEN_HEIGHT))
@@ -8,6 +9,8 @@ pygame.display.set_caption("Space Invaders")
 running = True
 player_group = pygame.sprite.Group()
 player_group.add(Player())
+enemy_group = pygame.sprite.Group()
+enemy_group.add(Enemy())
 def vypis_menu():
     screen.fill((0,0,127))
     screen.blit(settings.title_text, settings.title_rect)
@@ -24,7 +27,8 @@ def vypis_hru():
     screen.fill((0,0,0))
     player_group.update()
     player_group.draw(screen)
-    
+    enemy_group.update()
+    enemy_group.draw(screen)
 state = "MENU"   # MENU, PLAYING, PAUSED, GAME_OVER
 while running:
     for event in pygame.event.get():

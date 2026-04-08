@@ -6,13 +6,14 @@ FPS = 60
 
 PLAYER_SPEED = 5
 PLAYER_IMAGE_PATH = "img/spaceship.png"
-PLAYER_SCALE = 0.08
+PLAYER_SCALE = 0.5
 
+ENEMY_DROP = 0.8
 ENEMY_WIDTH = 50
-ENEMY_HEIGHT = 3
-ENEMY_SPEED = 2
-ENEMY_IMAGE_PATH = "img/alien.png"
-ENEMY_SCALE = 0.08
+ENEMY_HEIGHT = 50
+ENEMY_SPEED = 0.5
+ENEMY_IMAGE_PATH = "img/alien1.png"
+ENEMY_SCALE = 0.5
 #Menu 
 menu_font = pygame.font.SysFont("Arial", 50)
 title_text = menu_font.render("SPACE INVADERS", True, (255, 255, 255),(255,0,0))
