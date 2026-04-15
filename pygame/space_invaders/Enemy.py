@@ -10,8 +10,8 @@ class Enemy(pygame.sprite.Sprite):
         self.counter = 0
         self.direction = "Left"
     def update(self):
-        if self.counter % 50 == 0:
-            self.rect.y += settings.ENEMY_DROP
+        if self.counter % 90 == 0:
+            self.rect.y += settings.ENEMY_SPEED
             if self.direction == "Right":
                 self.direction = "Left"
             else:
@@ -23,7 +23,7 @@ class Enemy(pygame.sprite.Sprite):
                 self.rect.x -= settings.ENEMY_SPEED
         self.counter += 1
         if self.rect.left < 0:
-            self.rect.left=0
+            self.rect.left = 0
             self.direction = "Right"
         if self.rect.right > settings.SCREEN_WIDTH:
             self.rect.right = settings.SCREEN_WIDTH
