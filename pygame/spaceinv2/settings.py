@@ -10,8 +10,12 @@ PLAYER_WIDTH = 50
 PLAYER_HEIGHT = 50
 PLAYER_SPEED = 3.5
 PLAYER_IMAGE_PATH = "obrazk/R.png"
+PLAYER_BULLET_IMP = "obrazky/bullet.png"
+P_BULLET_SPEED = 5
 
 ENEMY_IMAGE_PATH = "obrazky/alien{}.png"
 ENEMY_SCALE = 1
 ENEMY_SPEED = 2
-ENEMY_DROP = 10
+ENEMY_DROP = 15
+ENEMY_BULLET_IMP = "obrazky/alien_bullet.png"
+E_BULLET_SPEED = 4

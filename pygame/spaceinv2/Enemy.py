@@ -23,7 +23,18 @@ class Enemy(pygame.sprite.Sprite):
             self.direction *= -1
             self.rect.move_ip(0, settings.ENEMY_DROP)
         
-    
+        self._check_borders()
+        
+    def _check_borders(self):
+        if self.rect.right > settings.SCREEN_WIDTH - 50:
+            self.counter = 100
+            self.direction = -1
+            self.rect.y += settings.ENEMY_DROP
+        elif self.rect.left < 50:
+            self.counter = -100
+            self.direction = 1
+            self.rect.y += settings.ENEMY_DROP
+
 
 if __name__ == "__main__":
     import main

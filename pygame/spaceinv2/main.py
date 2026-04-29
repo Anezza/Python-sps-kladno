@@ -2,6 +2,7 @@ import pygame
 import settings
 from Player import Player
 from Enemy import Enemy
+from Bullet import Bullet
 
 pygame.init()
 screen = pygame.display.set_mode((settings.SCREEN_WIDTH, settings.SCREEN_HEIGHT))
@@ -14,22 +15,34 @@ player_group.add(player)
 
 enemy = Enemy(0,50)
 enemy_group = pygame.sprite.Group()
-enemy_group.add(enemy)
 
-SPAWN_ENEMY = pygame.USEREVENT + 1
-spawning_timer = 500
-pygame.time.set_timer(SPAWN_ENEMY, spawning_timer)
-enn = 1
+
+def create_enemies():
+    x = 50
+    y = 25
+    for i in range(2):
+        for j in range(10):
+            enemy = Enemy(x,y)
+            x += 50
+            enemy_group.add(enemy)
+        y += 50
+        x = 50
+create_enemies()
+        
+
 running = True
 while running:
     clock.tick(settings.FPS)
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
-        if event.type == SPAWN_ENEMY:
-            if enn < 5:
-                enemy_group.add(Enemy(0,50))
-                enn += 1
+        if event.type == pygame.KEYDOWN:
+            if pygame.K_SPACE and player.cooldown == 0:
+                bullet = Bullet(player.rect.left + 5,player.rect.top + 40, "Player")
+                player_group.add(bullet)
+                bullet = Bullet(player.rect.right - 5,player.rect.top + 40, "Player")
+                player_group.add(bullet)
+                player.cooldown = pygame.time.get_ticks()
 
     screen.fill(settings.BG_COLOR)
     player_group.update()
