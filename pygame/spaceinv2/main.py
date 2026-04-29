@@ -6,6 +6,7 @@ from Enemy import Enemy
 pygame.init()
 screen = pygame.display.set_mode((settings.SCREEN_WIDTH, settings.SCREEN_HEIGHT))
 pygame.display.set_caption("Space Invaders OOP V2")
+clock = pygame.time.Clock()
 
 player = Player()
 player_group = pygame.sprite.Group()
@@ -15,11 +16,20 @@ enemy = Enemy(0,50)
 enemy_group = pygame.sprite.Group()
 enemy_group.add(enemy)
 
+SPAWN_ENEMY = pygame.USEREVENT + 1
+spawning_timer = 500
+pygame.time.set_timer(SPAWN_ENEMY, spawning_timer)
+enn = 1
 running = True
 while running:
+    clock.tick(settings.FPS)
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
+        if event.type == SPAWN_ENEMY:
+            if enn < 5:
+                enemy_group.add(Enemy(0,50))
+                enn += 1
 
     screen.fill(settings.BG_COLOR)
     player_group.update()
