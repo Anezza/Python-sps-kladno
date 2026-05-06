@@ -8,6 +8,7 @@ pygame.init()
 screen = pygame.display.set_mode((settings.SCREEN_WIDTH, settings.SCREEN_HEIGHT))
 pygame.display.set_caption("Space Invaders OOP V2")
 clock = pygame.time.Clock()
+timer = 0
 
 player = Player()
 player_group = pygame.sprite.Group()
@@ -16,6 +17,8 @@ player_group.add(player)
 enemy = Enemy(0,50)
 enemy_group = pygame.sprite.Group()
 
+SPAWN_EBULLET = pygame.USEREVENT + 1
+pygame.time.set_timer(SPAWN_EBULLET, 2000)
 
 def create_enemies():
     x = 50
@@ -43,11 +46,17 @@ while running:
                 bullet = Bullet(player.rect.right - 5,player.rect.top + 40, "Player")
                 player_group.add(bullet)
                 player.cooldown = pygame.time.get_ticks()
+        if event.type == SPAWN_EBULLET:
+            for enemy in enemy_group:
+                bullet = Bullet(enemy.rect.centerx,enemy.rect.bottom)
+                enemy_group.add(bullet)
+        
 
     screen.fill(settings.BG_COLOR)
     player_group.update()
     player_group.draw(screen)
-    
+    timer += 1
+
     enemy_group.update()
     enemy_group.draw(screen)
     pygame.display.flip()
