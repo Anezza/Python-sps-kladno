@@ -3,6 +3,9 @@ import settings
 from Player import Player
 from Enemy import Enemy
 from Bullet import Bullet
+from Explosion import Explosion
+from Boss import Boss
+from draw_hp_bar_enemies import draw_hp_bar_enemies
 import random
 
 pygame.init()
@@ -19,20 +22,26 @@ enemy = Enemy(0,50)
 enemy_group = pygame.sprite.Group()
 enemy_bullet_group = pygame.sprite.Group()
 
+explosion_group = pygame.sprite.Group()
+
 SPAWN_EBULLET = pygame.USEREVENT + 1
 pygame.time.set_timer(SPAWN_EBULLET, 2000)
-
-def create_enemies():
-    x = 50
-    y = 25
-    for i in range(2):
-        for j in range(10):
-            enemy = Enemy(x,y)
-            x += 50
-            enemy_group.add(enemy)
-        y += 50
-        x = 50
-create_enemies()
+level = 6
+def create_lvl(level):
+    if level > 5:
+        enemy = Boss(150, 25)
+        enemy_group.add(enemy)
+    else:
+        x = 75
+        y = 25
+        for i in range(level):
+            for j in range(level*2):
+                enemy = Enemy(x,y)
+                x += 50
+                enemy_group.add(enemy)
+            y += 50
+        x = 75
+create_lvl(level)
         
 
 running = True
@@ -60,8 +69,19 @@ while running:
     if pygame.sprite.groupcollide(player_group, enemy_bullet_group, True, True,pygame.sprite.collide_mask):
         print("srazka s player")
         running = False
-    if pygame.sprite.groupcollide(player_bullet_group, enemy_group, True, True,pygame.sprite.collide_mask):
-        print("srazka s enemy")    
+    collided_enemies = pygame.sprite.groupcollide(player_bullet_group, enemy_group, True, True,pygame.sprite.collide_mask)
+    for enemy in collided_enemies:   
+        explosion = Explosion(enemy.rect.centerx, enemy.rect.centery)
+        explosion_group.add(explosion)  
+        enemy.kill()
+        print("Enemy shotted down")
+    if len(enemy_group) == 0:
+        level += 1
+        create_lvl(level)
+    if level > 5:
+        for enemy in enemy_group:
+            draw_hp_bar_enemies(screen, enemy.hp, enemy.rect.x, enemy.rect.top - 10)
+
 
     screen.fill(settings.BG_COLOR)
     player_group.update()
@@ -75,6 +95,10 @@ while running:
 
     enemy_bullet_group.update()
     enemy_bullet_group.draw(screen)
+
+    explosion_group.update()
+    explosion_group.draw(screen)
+    
     pygame.display.flip()
 pygame.quit()
 

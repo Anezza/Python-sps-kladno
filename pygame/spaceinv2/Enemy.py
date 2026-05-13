@@ -11,6 +11,7 @@ class Enemy(pygame.sprite.Sprite):
         self.speed = settings.PLAYER_SPEED
         self.counter = -100
         self.direction = 1
+        self.hp = 1
 
     def update(self):
         if self.direction == 1:

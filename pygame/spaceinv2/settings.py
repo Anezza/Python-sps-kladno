@@ -19,3 +19,15 @@ ENEMY_SPEED = 2
 ENEMY_DROP = 15
 ENEMY_BULLET_IMP = "obrazky/alien_bullet.png"
 E_BULLET_SPEED = 4
+
+EXPLOSION_IMP = "obrazky/exp{}.png"
+
+BOSS_SCALE = 3
+
+EHP_BAR_WIDTH = 50
+EHP_BAR_HEIGHT = 10
+WHITE = (255,255,255)
+BLACK = (0,0,0)
+GREEN = (0,255,0)
+YELLOW = (255,255,0)
+RED = (255,0,0)
